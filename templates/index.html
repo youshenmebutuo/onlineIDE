@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<script src="{{ static_url('codemirror-5.44.0/lib/codemirror.js') }}"></script>
+<script src="{{ static_url('codemirror-5.44.0/addon/hint/show-hint.js') }}"></script>
+<script src="{{ static_url('codemirror-5.44.0/addon/hint/anyword-hint.js') }}"></script>
+<script src="{{ static_url('codemirror-5.44.0/mode/clike/clike.js') }}"></script>
+
+<!--引入css文件，用以支持主题-->
+<link rel="stylesheet" href="{{ static_url('codemirror-5.44.0/theme/seti.css') }}">
+<link rel="stylesheet" href="{{ static_url('codemirror-5.44.0/addon/hint/show-hint.css') }}">
+<link rel="stylesheet" href="{{ static_url('codemirror-5.44.0/doc/docs.css') }}">
+<link rel="stylesheet" href="{{ static_url('codemirror-5.44.0/lib/codemirror.css') }}">
+<link rel="stylesheet" href="{{ static_url('css/onlineIDE.css') }}">
+
+<head>
+    <title>CodeMirror Test</title>
+</head>
+
+<body>
+    <div class="headnav">
+        <form id="uploadForm" name="form" action="/file/upload" method="post" enctype="multipart/form-data" >
+            <input type="file" id="file-input" name="fileContent">打开文件
+        </form>
+        <button>保存</button>
+        <button onclick="compile()">编译</button>
+        <button onclick="start()">运行</button>
+        <button>调试</button>
+    </div>
+    <form action="/form" method="post" target="targetIfr" id="mycode" enctype="multipart/form-data" name="file">
+        <textarea id="code" name="code" type="file"></textarea>
+    </form>
+    <iframe name="targetIfr" style="display:none"></iframe>
+    <div class="process"></div>
+    <div class="results">
+        <div class="resulthead">终端</div>
+        <textarea id="result"></textarea>
+    </div>
+</body>
+<script type="text/javascript">
+    var resultstr = '';
+
+    //CodeMirror部分
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        mode: "text/x-java",
+        lineNumbers: true,
+        theme: "seti",
+        extraKeys: { "Ctrl-Space": "autocomplete" }
+    });
+
+    //webSocket部分
+    var messageContainer = document.getElementById("result");
+
+    var ws = new WebSocket("ws://192.168.239.132:8888/websocket");
+    ws.onopen = function () {
+        resultstr = "已连接到服务器 \n";
+        messageContainer.value = resultstr;
+    };
+    ws.onmessage = function (evt) {
+        var received_msg = evt.data;
+        resultstr += received_msg + "\n";
+        messageContainer.value = resultstr;
+    };
+    ws.onclose = function () {
+        resultstr += "服务器连接已关闭";
+        messageContainer.value = resultstr;
+    };
+
+    //编译
+    function compile() {
+        //document.getElementById("mycode").submit();
+        var codesource = editor.getValue();
+        var data = {
+            "task": "compile",
+            "data": codesource
+        };
+        data = JSON.stringify(data);
+        ws.send(data);
+        console.log(data);
+    }
+
+    //运行
+    function start() {
+        var data = {
+            "task": "start",
+        };
+        data = JSON.stringify(data);
+        ws.send(data);
+    }
+
+    //打开文件
+    var infile = document.getElementById("file-input");
+	infile.onchange = function (){
+        var formdata = new FormData(this.form);
+        //formdata.append("filename","mnist_test.py");
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				console.log(xmlhttp.responseText);
+			}
+		}
+		xmlhttp.open("POST",'/file/upload',true);
+		xmlhttp.send(formdata);
+	}
+
+</script>
+
+</html>
