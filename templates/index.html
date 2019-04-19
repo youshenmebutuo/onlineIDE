@@ -27,6 +27,9 @@
         <button onclick="start()">运行</button>
         <button>调试</button>
     </div>
+    <div class="filename">
+        <div id="fname">source.c</div>
+    </div>
     <form action="/form" method="post" target="targetIfr" id="mycode" enctype="multipart/form-data" name="file">
         <textarea id="code" name="code" type="file"></textarea>
     </form>
@@ -39,7 +42,8 @@
 </body>
 <script type="text/javascript">
     var resultstr = '';
-    var sourcefilename = "source.cpp";
+    var sourcefilename = "source.c";
+    var filenameel = document.getElementById("fname");
 
     //CodeMirror部分
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -110,7 +114,12 @@
 		{
 			if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			{
-				console.log(xmlhttp.responseText);
+				var filedata = eval('(' + xmlhttp.responseText + ')');
+				console.log(filedata.data);
+				editor.setValue(filedata.data);
+				sourcefilename = filedata.filename;
+				filenameel.innerHTML = sourcefilename;
+
 			}
 		}
 		xmlhttp.open("POST",'/file/upload',true);

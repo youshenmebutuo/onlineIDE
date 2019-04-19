@@ -21,7 +21,7 @@ button,#uploadForm{
 .results{
     position: absolute;
     bottom: 0px;
-    top: 455px;
+    top: 490px;
     left: 0px;
     right: 0px;
 }
@@ -56,4 +56,18 @@ button,#uploadForm{
 }
 #uploadForm{
     display: inline-block;
+}
+.filename{
+    height: 30px;
+    border-top: 1px solid slategray;
+    border-bottom: 1px solid slategray;
+    background: dimgrey;
+}
+#fname{
+    padding: 3px 10px;
+    border-right:  1px solid slategray;
+    mim-width: 100px;
+    width: 150px;
+    max-width: 240px;
+    height: 30px;
 }

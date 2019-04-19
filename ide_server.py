@@ -38,19 +38,13 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
 class FileUploadHandler(tornado.web.RequestHandler):
     async def post(self):
-        ret = {'result': 'OK'}
         file_metas = self.request.files.get('fileContent', None)  # 提取表单中‘name’为‘file’的文件元数据
-        if not file_metas:
-            ret['result'] = 'Invalid Args'
-            return ret
-
         for meta in file_metas:
             filename = meta['filename']
             file_path = os.path.join(app_settings.dir_path, filename)
             with open(file_path, 'wb') as up:
                 up.write(meta['body'])
-            self.write(json.dumps(ret))
-            self.write(ide_functions.open_file(app_settings.dir_path, filename))
+            self.write(json.loads(ide_functions.open_file(app_settings.dir_path, filename)))
 
 
 
