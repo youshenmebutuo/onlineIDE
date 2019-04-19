@@ -22,7 +22,7 @@
         <form id="uploadForm" name="form" action="/file/upload" method="post" enctype="multipart/form-data" >
             <input type="file" id="file-input" name="fileContent">打开文件
         </form>
-        <button>保存</button>
+        <button onclick="savefile()">保存</button>
         <button onclick="compile()">编译</button>
         <button onclick="start()">运行</button>
         <button>调试</button>
@@ -39,6 +39,7 @@
 </body>
 <script type="text/javascript">
     var resultstr = '';
+    var sourcefilename = "source.cpp";
 
     //CodeMirror部分
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -65,14 +66,14 @@
         resultstr += "服务器连接已关闭";
         messageContainer.value = resultstr;
     };
-
+    
     //编译
     function compile() {
         //document.getElementById("mycode").submit();
         var codesource = editor.getValue();
         var data = {
             "task": "compile",
-            "filename": "source.cpp",
+            "filename": sourcefilename,
             "data": codesource
         };
         data = JSON.stringify(data);
@@ -84,7 +85,7 @@
     function start() {
         var data = {
             "task": "start",
-            "filename": "source.cpp"
+            "filename": sourcefilename,
         };
         data = JSON.stringify(data);
         ws.send(data);
@@ -95,6 +96,7 @@
 	infile.onchange = function (){
         var formdata = new FormData(this.form);
         //formdata.append("filename","mnist_test.py");
+        console.log(this.value);
 		var xmlhttp;
 		if (window.XMLHttpRequest)
 		{

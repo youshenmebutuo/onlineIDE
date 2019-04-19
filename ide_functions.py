@@ -1,4 +1,5 @@
 import os
+import json
 import subprocess
 
 def save_file(path, data: str):
@@ -22,3 +23,13 @@ def start(dir_path, file_name):
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     (std_output, err_output) = proc.communicate()
     return (err_output, std_output)
+
+def open_file(dir_path, file_name):
+    file_path = dir_path + file_name
+    with open(file_path) as f:
+        message = {
+            "task": "openfile",
+            "filename": file_name,
+            "data": f.read()
+        }
+    return json.dumps(message)
