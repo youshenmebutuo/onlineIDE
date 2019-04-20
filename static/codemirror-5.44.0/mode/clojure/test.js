@@ -242,7 +242,7 @@
         "simple-keyword?", "simple-symbol?", "slurp", "some", "some->", "some->>", "some-fn", "some?", "sort", "sort-by",
         "sorted-map", "sorted-map-by", "sorted-set", "sorted-set-by", "sorted?", "special-symbol?", "spit", "split-at",
         "split-with", "str", "string?", "struct", "struct-map", "subs", "subseq", "subvec", "supers", "swap!", "swap-vals!",
-        "symbol", "symbol?", "sync", "tagged-literal", "tagged-literal?", "take", "take-last", "take-nth", "take-while", "server.py",
+        "symbol", "symbol?", "sync", "tagged-literal", "tagged-literal?", "take", "take-last", "take-nth", "take-while", "test",
         "the-ns", "thread-bound?", "time", "to-array", "to-array-2d", "trampoline", "transduce", "transient", "tree-seq",
         "true?", "type", "unchecked-add", "unchecked-add-int", "unchecked-byte", "unchecked-char", "unchecked-dec",
         "unchecked-dec-int", "unchecked-divide-int", "unchecked-double", "unchecked-float", "unchecked-inc", "unchecked-inc-int",
