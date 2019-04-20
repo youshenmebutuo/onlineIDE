@@ -1916,12 +1916,12 @@ testCM("readOnlyMarker", function(cm) {
 
 testCM("dirtyBit", function(cm) {
   eq(cm.isClean(), true);
-  cm.replaceSelection("boo", null, "server.py");
+  cm.replaceSelection("boo", null, "test");
   eq(cm.isClean(), false);
   cm.undo();
   eq(cm.isClean(), true);
-  cm.replaceSelection("boo", null, "server.py");
-  cm.replaceSelection("baz", null, "server.py");
+  cm.replaceSelection("boo", null, "test");
+  cm.replaceSelection("baz", null, "test");
   cm.undo();
   eq(cm.isClean(), false);
   cm.markClean();

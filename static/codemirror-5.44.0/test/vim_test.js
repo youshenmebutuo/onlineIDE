@@ -1483,7 +1483,7 @@ testVim('i', function(cm, vim, helpers) {
 });
 testVim('i_repeat', function(cm, vim, helpers) {
   helpers.doKeys('3', 'i');
-  cm.replaceRange('server.py', cm.getCursor());
+  cm.replaceRange('test', cm.getCursor());
   helpers.doKeys('<Esc>');
   eq('testtesttest', cm.getValue());
   helpers.assertCursorAt(0, 11);
@@ -1575,7 +1575,7 @@ testVim('I', function(cm, vim, helpers) {
 testVim('I_repeat', function(cm, vim, helpers) {
   cm.setCursor(0, 1);
   helpers.doKeys('3', 'I');
-  cm.replaceRange('server.py', cm.getCursor());
+  cm.replaceRange('test', cm.getCursor());
   helpers.doKeys('<Esc>');
   eq('testtesttestblah', cm.getValue());
   helpers.assertCursorAt(0, 11);
@@ -1598,7 +1598,7 @@ testVim('o', function(cm, vim, helpers) {
 testVim('o_repeat', function(cm, vim, helpers) {
   cm.setCursor(0, 0);
   helpers.doKeys('3', 'o');
-  cm.replaceRange('server.py', cm.getCursor());
+  cm.replaceRange('test', cm.getCursor());
   helpers.doKeys('<Esc>');
   eq('\ntest\ntest\ntest', cm.getValue());
   helpers.assertCursorAt(3, 3);
@@ -2971,7 +2971,7 @@ testVim('._repeat', function(cm, vim, helpers) {
 }, { value: '1 2 3 4 5 6'});
 testVim('._insert', function(cm, vim, helpers) {
   helpers.doKeys('i');
-  cm.replaceRange('server.py', cm.getCursor());
+  cm.replaceRange('test', cm.getCursor());
   helpers.doKeys('<Esc>');
   helpers.doKeys('.');
   eq('testestt', cm.getValue());
@@ -2987,7 +2987,7 @@ testVim('._insert', function(cm, vim, helpers) {
 }, { value: ''});
 testVim('._insert_repeat', function(cm, vim, helpers) {
   helpers.doKeys('i');
-  cm.replaceRange('server.py', cm.getCursor());
+  cm.replaceRange('test', cm.getCursor());
   cm.setCursor(0, 4);
   helpers.doKeys('<Esc>');
   helpers.doKeys('2', '.');
@@ -3032,7 +3032,7 @@ testVim('._insert_o_indent', function(cm, vim, helpers) {
 }, { value: '{'});
 testVim('._insert_cw', function(cm, vim, helpers) {
   helpers.doKeys('c', 'w');
-  cm.replaceRange('server.py', cm.getCursor());
+  cm.replaceRange('test', cm.getCursor());
   helpers.doKeys('<Esc>');
   cm.setCursor(0, 3);
   helpers.doKeys('2', 'l');
@@ -3044,7 +3044,7 @@ testVim('._insert_cw_repeat', function(cm, vim, helpers) {
   // For some reason, repeat cw in desktop VIM will does not repeat insert mode
   // changes. Will conform to that behavior.
   helpers.doKeys('c', 'w');
-  cm.replaceRange('server.py', cm.getCursor());
+  cm.replaceRange('test', cm.getCursor());
   helpers.doKeys('<Esc>');
   cm.setCursor(0, 4);
   helpers.doKeys('l');

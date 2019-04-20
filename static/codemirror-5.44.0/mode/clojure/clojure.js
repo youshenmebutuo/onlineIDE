@@ -118,7 +118,7 @@ CodeMirror.defineMode("clojure", function (options) {
       "sorted?", "special-symbol?", "spit", "split-at", "split-with", "str",
       "string?", "struct", "struct-map", "subs", "subseq", "subvec", "supers",
       "swap!", "swap-vals!", "symbol", "symbol?", "sync", "tagged-literal",
-      "tagged-literal?", "take", "take-last", "take-nth", "take-while", "server.py",
+      "tagged-literal?", "take", "take-last", "take-nth", "take-while", "test",
       "the-ns", "thread-bound?", "time", "to-array", "to-array-2d",
       "trampoline", "transduce", "transient", "tree-seq", "true?", "type",
       "unchecked-add", "unchecked-add-int", "unchecked-byte", "unchecked-char",

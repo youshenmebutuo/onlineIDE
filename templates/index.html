@@ -55,8 +55,8 @@
 
     //webSocket部分
     var messageContainer = document.getElementById("result");
-
-    var ws = new WebSocket("ws://127.0.0.1:8888/websocket");
+    var wsurl = "ws://172.19.114.167:8888/websocket";
+    var ws = new WebSocket(wsurl);
     ws.onopen = function () {
         resultstr = "已连接到服务器 \n";
         messageContainer.value = resultstr;
