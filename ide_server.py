@@ -50,7 +50,9 @@ class FileUploadHandler(tornado.web.RequestHandler):
 
 def make_app():
     settings = {
-        "static_path": os.path.join(os.path.dirname(__file__), "static")
+        "static_path": os.path.join(os.path.dirname(__file__), "static"),
+        "autoreload": True,
+        "debug": True
     }  # 配置静态文件路径
     return tornado.web.Application([
         (r"/", MainHandler),
