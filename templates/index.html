@@ -22,7 +22,7 @@
         <form id="uploadForm" name="form" action="/file/upload" method="post" enctype="multipart/form-data" >
             <input type="file" id="file-input" name="fileContent">打开文件
         </form>
-        <button onclick="savefile()">保存</button>
+        <a id="updown" onclick="savefile()">下载</a>
         <button onclick="compile()">编译</button>
         <button onclick="start()">运行</button>
         <button>调试</button>
@@ -125,6 +125,13 @@
 		xmlhttp.open("POST",'/file/upload',true);
 		xmlhttp.send(formdata);
 	}
+
+	function savefile() {
+        var saveele = document.getElementById("updown");
+	    var data = editor.getValue();
+	    saveele.href = 'data:text/txt;charset=utf-8,'+data;
+		saveele.download = sourcefilename;
+    }
 
 </script>
 
