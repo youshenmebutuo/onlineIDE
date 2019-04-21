@@ -22,7 +22,7 @@
         <form id="uploadForm" name="form" action="/file/upload" method="post" enctype="multipart/form-data" >
             <input type="file" id="file-input" name="fileContent">打开文件
         </form>
-        <a id="updown" onclick="savefile()">下载</a>
+        <button onclick="savefile()">保存</button>
         <button onclick="compile()">编译</button>
         <button onclick="start()">运行</button>
         <button>调试</button>
@@ -37,12 +37,11 @@
     <div class="process"></div>
     <div class="results">
         <div class="resulthead">终端</div>
-        <textarea id="result" onkeyup="keyinput()"></textarea>
+        <textarea id="result"></textarea>
     </div>
 </body>
 <script type="text/javascript">
     var resultstr = '';
-    var resultlen = resultstr.length;
     var sourcefilename = "source.c";
     var filenameel = document.getElementById("fname");
 
@@ -61,13 +60,11 @@
     ws.onopen = function () {
         resultstr = "已连接到服务器 \n";
         messageContainer.value = resultstr;
-        resultlen = resultstr.length;
     };
     ws.onmessage = function (evt) {
         var received_msg = evt.data;
-        resultstr += received_msg;
+        resultstr += received_msg + "\n";
         messageContainer.value = resultstr;
-        resultlen = resultstr.length;
     };
     ws.onclose = function () {
         resultstr += "服务器连接已关闭";
@@ -128,32 +125,6 @@
 		xmlhttp.open("POST",'/file/upload',true);
 		xmlhttp.send(formdata);
 	}
-
-	//文件下载保存
-	function savefile() {
-        var saveele = document.getElementById("updown");
-	    var data = editor.getValue();
-	    saveele.href = 'data:text/txt;charset=utf-8,'+data;
-		saveele.download = sourcefilename;
-    }
-
-    //终端输入部分
-    function keyinput() {
-	    var newlen = messageContainer.value.length;
-	    if(event.keyCode == "13" && newlen !== resultlen) {
-            resultstr = messageContainer.value;
-            var inputdata = resultstr.slice(resultlen);
-
-            resultlen = newlen;
-            console.log('input: ' + inputdata);
-            var argumentdata = {
-                "task": "args",
-                "data": inputdata,
-            };
-            argumentdata = JSON.stringify(argumentdata);
-            ws.send(argumentdata);
-        }
-    }
 
 </script>
 
