@@ -37,7 +37,7 @@
     <div class="process"></div>
     <div class="results">
         <div class="resulthead">终端</div>
-        <textarea id="result" onkeydown="keyinput()"></textarea>
+        <textarea id="result" onkeyup="keyinput()"></textarea>
     </div>
 </body>
 <script type="text/javascript">
@@ -143,6 +143,9 @@
 	    if(event.keyCode == "13" && newlen !== resultlen){
 			resultstr = messageContainer.value;
 			var inputdata = resultstr.slice(resultlen);
+			{#if(inputdata.slice(0,1) == '\n'){#}
+			{#    inputdata = inputdata.slice(2);#}
+            {#}#}
 			resultlen = newlen;
 			console.log('input: ' +  inputdata);
 			var argumentdata = {
