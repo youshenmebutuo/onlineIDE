@@ -65,7 +65,7 @@
     };
     ws.onmessage = function (evt) {
         var received_msg = evt.data;
-        resultstr += received_msg + "\n";
+        resultstr += received_msg;
         messageContainer.value = resultstr;
         resultlen = resultstr.length;
     };
@@ -140,22 +140,19 @@
     //终端输入部分
     function keyinput() {
 	    var newlen = messageContainer.value.length;
-	    if(event.keyCode == "13" && newlen !== resultlen){
-			resultstr = messageContainer.value;
-			var inputdata = resultstr.slice(resultlen);
-			{#if(inputdata.slice(0,1) == '\n'){#}
-			{#    inputdata = inputdata.slice(2);#}
-            {#}#}
-			resultlen = newlen;
-			console.log('input: ' +  inputdata);
-			var argumentdata = {
+	    if(event.keyCode == "13" && newlen !== resultlen) {
+            resultstr = messageContainer.value;
+            var inputdata = resultstr.slice(resultlen);
+
+            resultlen = newlen;
+            console.log('input: ' + inputdata);
+            var argumentdata = {
                 "task": "argu",
                 "data": inputdata,
             };
-        argumentdata = JSON.stringify(argumentdata);
-        ws.send(argumentdata);
-		}
-
+            argumentdata = JSON.stringify(argumentdata);
+            ws.send(argumentdata);
+        }
     }
 
 </script>
