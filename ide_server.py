@@ -25,7 +25,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         if message['task'] == 'compile':
             (err_output, std_output) = \
                 ide_functions.compile(app_settings.dir_path, message['data'], message['filename'])
-            self.write_message("成功上传代码至服务器")
+            self.write_message("成功上传代码至服务器\n")
             self.write_message(std_output)
             self.write_message(err_output)
         elif message['task'] == 'start':
