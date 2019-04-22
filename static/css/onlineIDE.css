@@ -7,13 +7,17 @@ body{
     padding: 5px;
     background-color: dimgrey;
 }
-button,#uploadForm{
+button,#uploadForm,#updown{
     width: 80px;
     height: 25px;
     margin: 10px;
     margin-left: 30px;
     background-color: cadetblue;
     border: 1px solid cornflowerblue;
+}
+a{
+    color:black;
+    display: inline-block;
 }
 .CodeMirror{
     height: 400px;
