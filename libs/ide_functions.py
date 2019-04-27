@@ -8,7 +8,7 @@ def save_file(path, data: str):
         up.write(data.encode("utf-8"))
 
 def compile(dir_path, data, file_name):
-    file_path = dir_path + file_name
+    file_path = dir_path + '/'+ file_name
     save_file(file_path, data)
     output_path = os.path.splitext(file_path)[0] + ".out"
     cmd = "gcc -g " + file_path + " -o " + output_path
@@ -18,14 +18,13 @@ def compile(dir_path, data, file_name):
     return (err_output, std_output)
 
 def start(dir_path, file_name):
-    cmd = "./" + dir_path + os.path.splitext(file_name)[0] + ".out"
+    cmd = "./" + dir_path + '/' + os.path.splitext(file_name)[0] + ".out"
     proc = subprocess.Popen(
-        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-    (std_output, err_output) = proc.communicate()
-    return (err_output, std_output)
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
+    return proc
 
 def open_file(dir_path, file_name):
-    file_path = dir_path + file_name
+    file_path = dir_path + '/'+ file_name
     with open(file_path) as f:
         message = {
             "task": "openfile",
